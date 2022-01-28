@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block container %}
+
+<h3>Users Page</h3>
+<div>
+    {% for user in users %}
+    <p>{{ user }}</p>
+    {% endfor %}
+</div>
+
+{% endblock container %}
