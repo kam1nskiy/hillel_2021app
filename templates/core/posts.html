@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block container %}
-
 <h3>List of posts:</h3>
 <div>
     <table class="table">
@@ -8,18 +7,30 @@
         <tr>
             <th>Post</th>
             <th>Content</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
 
-        {% for post in posts %}
+        {% for post, likes, dislikes in results %}
         <tr>
-            <td >{{ post.title }}</td>
-            <td>{{ post.content }}</td>
+            <td><a  href="{% url 'core:post_detail' slug=post.slug %}">
+                {{ post.title }}
+            </a></td>
+            <td>{{ post.content|truncatechars:100 }}</td>
+            <td>{{ likes }}</td>
+            <td>{{ dislikes }}</td>
+            <td><a href="{% url 'core:post_delete' slug=post.slug %}">Delete</a> |
+                <a href="{% url 'core:post_update' slug=post.slug %}">Update</a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+<hr>
+<a class="btn btn-secondary btn-lg btn-block" href="{% url 'core:post_create' %}" role="button">Create new post</a>
 
 {% endblock container %}

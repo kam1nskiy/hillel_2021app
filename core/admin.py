@@ -1,7 +1,6 @@
 from django.contrib import admin
-
-# from .models import Like, Post
-from core import models
+from .models import Like, Post
+# from core import models
 
 # @admin.register(Post)
 # class PostAdmin(admin.ModelAdmin):
@@ -12,16 +11,31 @@ from core import models
 # class PostAdmin(admin.ModelAdmin):
 #     pass
 
+class LikeInline(admin.TabularInline):
+    model = Like
+    fk_name = 'post'
 
-class TabularInlineLike(admin.TabularInline):
-    model=models.Like
 
 class PostAdmin(admin.ModelAdmin):
-    inlines=[TabularInlineLike]
-    list_display = ("title", "user")
+    inlines = [
+        LikeInline,
+    ]
+    list_display = 'title', 'user', 'created_at'
+    prepopulated_fields = {'slug': ('title',),}    
 
-admin.site.register(models.Post, PostAdmin)
 
+
+# class PostAdmin(admin.ModelAdmin):
+#     inlines = [
+#         LikeInline,
+#     ]
+
+
+#     list_display = 'title', 'user', 'created_at'
+#     prepopulated_fields = {'slug': ('title',),}
+
+
+admin.site.register(Post,PostAdmin)
 
 
 # Register your models here.
