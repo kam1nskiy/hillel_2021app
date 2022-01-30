@@ -60,9 +60,6 @@ class PostCreateView(CreateView):
     template_name = 'core/post_create.html'
     success_url = '/posts'
 
-    #TODO: user_id, slug:
-    # user_id = request.user
-    # slug = slugify('title')
 
 
 class PostUpdateView(UpdateView):
