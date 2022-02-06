@@ -60,6 +60,10 @@ class PostCreateView(CreateView):
     template_name = 'core/post_create.html'
     success_url = '/posts'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 
 class PostUpdateView(UpdateView):
