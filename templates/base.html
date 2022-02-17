@@ -6,11 +6,18 @@
 <body>
     {% include "menu.html" %}
 <hr>
+{% if user.is_authenticated %}
+Hello {{user.username}}
+</br>
+{% block contetnt %}{% endblock contetnt %}
+{% else %}
+Please log in
+{% block anon_contetnt %}{% endblock anon_contetnt %}
+{% endif %}
     <div class="container">
         {% block container %}
         {% endblock container %}
     </div>
-
 </body>
 <footer class="footer-bottom">
     <hr>

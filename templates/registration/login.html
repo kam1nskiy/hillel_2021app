@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+{% block contetnt %} You have already logged in {% endblock contetnt %}
+
+{% block anon_contetnt %}
+<h1>Login</h1>
+<form action ="" method ="post">
+     {% csrf_token %}
+     {{form}}
+     <button type="submit">Login</button>
+</form>
+{% endblock anon_contetnt %}

@@ -1,25 +1,8 @@
+from django.http import Http404, HttpResponseRedirect
 from django.views.generic import *
 
 from core.models import Post
 from .forms import CreateForm
-
-
-# def posts(request):
-#     posts = Post.objects.all()
-#     results = ",".join([post.title for post in posts])
-#     #posts = "post 1: USER"
-#     return HttpResponse(results)
-
-
-
-# class PostsView(TemplateView):
-#     template_name = 'core/posts.html'
-
-
-#     def get_context_data(self, **kwargs):
-#         ctx = super().get_context_data(**kwargs)
-#         ctx['posts'] = Post.objects.all() 
-#         return ctx
 
 
 class PostsView(TemplateView):
@@ -76,11 +59,22 @@ class PostUpdateView(UpdateView):
     template_name_suffix = '_update_form'
     success_url = '/posts'
 
+    def get(self, request, *args, **kwargs):
+        if self.get_object().user != request.user:
+            return HttpResponseRedirect("/posts/")
+        return super().get(request, *args, **kwargs)
+
 
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'core/post_delete.html'
     success_url = '/posts'
+
+    def get(self, request, *args, **kwargs):
+        if self.get_object().user != request.user:
+            return HttpResponseRedirect("/posts")
+        return super().get(request, *args, **kwargs)
+
 
 
 

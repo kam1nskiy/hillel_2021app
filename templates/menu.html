@@ -4,3 +4,28 @@
     <a class="nav-link" href= '/users'>Users</a>
   <br>
 </nav> 
+
+
+{% block menu %}
+{% if user.is_authenticated %}
+<ul class="navbar-nav me-2">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+    </li>
+</ul>
+{% else %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+</ul>
+<ul class="navbar-nav me-2">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+    </li>
+</ul>
+{% endif %}
+</div>
+</div>
+</div>
+</nav>
+{% endblock menu %}
